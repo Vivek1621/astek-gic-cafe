@@ -1,32 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import { AgGridReact } from "ag-grid-react";
-import { Button, Box, Grid, Typography } from "@mui/material";
+import { Button, Box, Grid, Typography, TextField } from "@mui/material";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
-import PropTypes  from "prop-types";
-
+import PropTypes from "prop-types";
 
 export const AgGridTable = ({
     btnName,
     pageHeader,
     rowData,
     handleAddNew,
-    columns
+    columns,
+    handleFilter,
+    isFilterRequire
 }) => {
+    const [filterText, setFilterText] = useState("");
+
+    const handleFilterChange = (e) => {
+        setFilterText(e.target.value);
+    };
+
+    const applyFilter = () => {
+        if (handleFilter) {
+            handleFilter(filterText);
+        }
+    };
+
     return (
         <Box sx={{ p: 3 }}>
             <Typography variant="h4" gutterBottom>{pageHeader}</Typography>
             <Grid container spacing={2} mb={2}>
                 <Grid item xs={12} sm={6}>
-                    {/* <TextField
-                        fullWidth
-                        label="Filter by Location"
-                        value={locationFilter}
-                        onChange={handleFilterChange}
-                    /> */}
+                    {isFilterRequire && (   
+                    <Grid container>
+                        <Grid item xs={12} sm={8}>
+                            <TextField
+                                label="Filter By Location"
+                                variant="outlined"
+                                fullWidth
+                                value={filterText}
+                                onChange={handleFilterChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={4} sx={{ pl:2, display: "flex", justifyContent: "flex-start" }}>
+                            <Button variant="contained" color="primary" onClick={applyFilter}>
+                                Filter
+                            </Button>
+                        </Grid>
+                    </Grid>
+                    )}
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{ display: "flex", justifyContent: "flex-end" }}>
-                    <Button variant="contained" color="primary" onClick={handleAddNew}>
+
+                    <Button variant="contained" color="secondary" onClick={handleAddNew} sx={{ ml: 2 }}>
                         {btnName}
                     </Button>
                 </Grid>
@@ -49,14 +75,18 @@ AgGridTable.propTypes = {
     pageHeader: PropTypes.string,
     handleAddNew: PropTypes.func,
     rowData: PropTypes.array,
-    columns: PropTypes.array
+    columns: PropTypes.array,
+    handleFilter: PropTypes.func,
+    isFilterRequire: PropTypes.bool
 }
 
-AgGridTable.defaultValues = {
+AgGridTable.defaultProps = {
     btnName: "Add Employee",
-    pageHeader: "Enployess Management System",
+    pageHeader: "Employees Management System",
     rowData: [],
-    columns: []
+    columns: [],
+    handleFilter: null,
+    isFilterRequire: false
 }
 
 export default AgGridTable;

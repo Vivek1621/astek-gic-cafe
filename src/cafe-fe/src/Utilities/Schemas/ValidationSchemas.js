@@ -27,5 +27,5 @@ export const EmployeeValidationSchema = Yup.object({
       .required("Phone number is required"),
     gender: Yup.string()
       .required("Gender is required"),
-    assignedCafe: Yup.string()
+      cafe_id: Yup.string()
   });

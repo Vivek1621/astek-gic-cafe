@@ -8,22 +8,26 @@ import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRen
 import AgGridTable from "../../Components/AgGridTable/AgGridTable";
 import { Box } from "@mui/material";
 import { CustomDialog } from "../../Library/Modal/Modal";
+import { Loader } from "../../Library/Loader/Loader";
+import { CustomSnackbar } from "../../Library/Snackbar/Snackbar";
+import { resetSnackbarData } from "../../Redux/Reducers/SnackbarSlice";
 
 const CafePage = () => {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [selectCafeId, setselectCafeId] = useState(null);
-  // const [locationFilter, setLocationFilter] = useState("");
   const navigate = useNavigate();
-  const { cafes } = useSelector(state => state.getCafe);
+  const { cafes, isLoading } = useSelector(state => state.getCafe);
+  const { isLoading: deleteLoading } = useSelector(state => state.deleteCafe);
+  const { snackbarData } = useSelector((state) => state.snackbarDetails);
 
   useEffect(() => {
     dispatch(fetchGetCafesRequest());
   }, []);
 
-  const handleEdit = (cafeId) => {
-    navigate(`/edit-cafe/${cafeId}`);
-  };
+  const handleEdit = (cafe) => {
+    navigate("/cafeForm",  { state: { cafe } });
+};
 
   const handleDelete = () => {
     dispatch(fetchDeleteCafesRequest({
@@ -33,15 +37,24 @@ const CafePage = () => {
   };
 
   const handleAddNewCafe = () => {
-    navigate("/add-cafe");
+    navigate("/cafeForm");
   };
   const handleClose = () => {
     setOpenModal(false);
   };
 
+  const handleFilter = (filterText) => {
+    fetchGetCafesRequest(filterText);
+  };
 
+  const closeSnackbar = () => {
+    dispatch(resetSnackbarData())
+  }
+  const navigateToHome = () => {
+    navigate("/cafes")
+  }
   const handleEmployeesClick = (cafeId) => {
-    navigate(`/cafe/${cafeId}/employees`);
+    navigate(`/employees/${cafeId}`);
   };
 
   const filteredCafes = cafes ?? [];
@@ -65,8 +78,8 @@ const CafePage = () => {
       field: "id",
       cellRenderer: params => (
         <Box>
-          <DriveFileRenameOutlineOutlinedIcon color="primary" onClick={() => handleEdit(params.value)} />
-          <DeleteTwoToneIcon variant="contained" color="secondary" onClick={() => {setselectCafeId(params.data.id); setOpenModal(true);  }} />
+          <DriveFileRenameOutlineOutlinedIcon color="primary" onClick={() => handleEdit(params.data)} />
+          <DeleteTwoToneIcon variant="contained" color="secondary" onClick={() => { setselectCafeId(params.data.id); setOpenModal(true); }} />
         </Box>
       )
     }
@@ -74,11 +87,21 @@ const CafePage = () => {
 
   return (
     <>
+      <Loader isOpen={isLoading || deleteLoading} />
+      <CustomSnackbar {...snackbarData}
+        handleClose={() => {
+          closeSnackbar();
+          if (snackbarData.shouldExit) {
+            navigateToHome();
+          }
+        }} />
       <AgGridTable btnName={"Add New Café"}
         pageHeader={"Cafés"}
         rowData={filteredCafes}
         columns={columns}
         handleAddNew={handleAddNewCafe}
+        handleFilter={handleFilter}
+        isFilterRequire={true}
       />
       <CustomDialog
         isOpen={openModal ? true : false}
@@ -91,33 +114,6 @@ const CafePage = () => {
         closeLabel="No"
       />
     </>
-    // <Box sx={{ p: 3 }}>
-    //   <Typography variant="h4" gutterBottom>Cafés</Typography>
-    //   <Grid container spacing={2} mb={2}>
-    //     <Grid item xs={12} sm={6}>
-    //       <TextField
-    //         fullWidth
-    //         label="Filter by Location"
-    //         value={locationFilter}
-    //         onChange={handleFilterChange}
-    //       />
-    //     </Grid>
-    //     <Grid item xs={12} sm={6} sx={{ display: "flex", justifyContent: "flex-end" }}>
-    //       <Button variant="contained" color="primary" onClick={handleAddNewCafe}>
-    //         Add New Café
-    //       </Button>
-    //     </Grid>
-    //   </Grid>
-    //   <div className="ag-theme-quartz" style={{ width: "100%", height: "100%" }}>
-    //     <AgGridReact
-    //       rowData={filteredCafes}
-    //       columnDefs={columns}
-    //       pagination
-    //       paginationPageSize={10}
-    //       domLayout={"autoHeight"}
-    //     />
-    //   </div>
-    // </Box>
   );
 };
 

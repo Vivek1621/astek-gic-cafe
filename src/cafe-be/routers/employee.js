@@ -7,13 +7,13 @@ router.get('/getEmployees', async (req, res) => {
     try {
         const cafe = req.query.cafe;
         let query = `
-            SELECT e.id, e.name, e.email_address, e.gender, e.phone_number, DATEDIFF(CURDATE(), ec.start_date) AS days_worked, c.name AS cafe
+            SELECT e.id, e.name, e.email_address, e.gender, e.phone_number, DATEDIFF(CURDATE(), ec.start_date) AS days_worked, c.name AS cafe, c.id AS cafe_id, ec.start_date
             FROM employee e
             LEFT JOIN employeecafe ec ON e.id = ec.employee_id
             LEFT JOIN cafe c ON ec.cafe_id = c.id `;
         
         if (cafe) {
-            query += ` WHERE c.name = ?`;
+            query += ` WHERE c.id = ?`;
         }
         
         query += ` ORDER BY days_worked DESC`;

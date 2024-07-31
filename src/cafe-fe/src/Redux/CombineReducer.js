@@ -9,6 +9,7 @@ import getEmployeesListReducer from "./Reducers/EmployeeSlice/GetEmployeesList";
 import createEmployeeReducer from "./Reducers/EmployeeSlice/CreateEmployeeSlice";
 import deleteEmployeeReducer from "./Reducers/EmployeeSlice/DeleteEmployeeSlice";
 import updateEmployeeReducer from "./Reducers/EmployeeSlice/UpdateEmployeeSlice";
+import SnackbarSlice from "./Reducers/SnackbarSlice";
 
 const combineReducer = combineReducers({
     getCafe: getCafeReducer,
@@ -20,6 +21,7 @@ const combineReducer = combineReducers({
     createEmployee: createEmployeeReducer,
     deleteEmployee: deleteEmployeeReducer,
     updateEmployee: updateEmployeeReducer,
+    snackbarDetails: SnackbarSlice,
 
 });
 

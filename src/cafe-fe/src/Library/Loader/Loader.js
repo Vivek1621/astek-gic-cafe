@@ -1,7 +1,7 @@
 import React from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import PropType from "prop-types"
+import PropTypes  from "prop-types";
 
 export const Loader = ({ isOpen, color }) => {
     return (
@@ -9,7 +9,7 @@ export const Loader = ({ isOpen, color }) => {
             <Backdrop
                 sx={{ color: color, zIndex: (theme) => theme.zIndex.drawer + 1 }}
                 open={isOpen}
-                onClick={handleClose}
+                // onClick={handleClose}
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
@@ -17,9 +17,9 @@ export const Loader = ({ isOpen, color }) => {
     );
 }
 
-Loader.propType = {
-    isOpen: PropType.bool.isRequired,
-    color: PropType.string,
+Loader.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    color: PropTypes.string,
 }
 
 Loader.defaultProps = {
