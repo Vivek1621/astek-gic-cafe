@@ -10,14 +10,13 @@ Project Setup
 
 --> DB Setup
 
-1. Create Schema using this command "CREATE SCHEMA astek_gic;"
-2. Run this command to use the DB "USE astek_gic;"
-3. Please find the JSON files in this path "Scripts/sql".
-4. Import them in this following order to the newly created "astek_gic" database for the Tables with seeded data.
+1. Create the DB and the tables by running the sql file "scripts/sql/Astek_Cafe_Create.sql"
+2. Please find the JSON files in this path "Scripts/json".
+3. Import them in this following order to the newly created "astek_gic" database for the Tables with seeded data.
        1. cafe.json
        2. employee.json
        3. employee_id_counter.json
-       4.employeecafe.json
+4. After the third step run the another SQL file for relatioinal seeded data 
 5. Now "astek_gic" database is ready with sample seeded values.
 
 --> Backend Setup
