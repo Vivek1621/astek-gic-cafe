@@ -1,0 +1,5 @@
+[{"id":"10ddb8df-4c28-11ef-bb74-00059a3c7a00", "name":"Cafe Delight", "description":"A cozy cafe with a wide selection of pastries and coffee.", "logo":"", "location":"Pasir Ris"},
+ {"id":"10ddf44b-4c28-11ef-bb74-00059a3c7a00", "name":"Java Junction", "description":"The perfect place to enjoy your morning brew and relax.", "logo":"", "location":"Sengkang"},
+ {"id":"10de047c-4c28-11ef-bb74-00059a3c7a00", "name":"Brewed Awakenings", "description":"Specializing in artisan coffees and fresh baked goods.", "logo":"", "location":"Kaki Bukit"},
+ {"id":"10de0edc-4c28-11ef-bb74-00059a3c7a00", "name":"Caffeine Haven", "description":"Your go-to spot for a caffeine fix and relaxing environment.", "logo":"", "location":"Pasir Ris"},
+ {"id":"10de17ee-4c28-11ef-bb74-00059a3c7a00", "name":"Perk Up Cafe", "description":"A vibrant cafe with a great selection of coffee and light bites.", "logo":"", "location":"Sengkang"}]
