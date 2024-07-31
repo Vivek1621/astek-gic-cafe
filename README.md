@@ -16,7 +16,7 @@ Project Setup
        1. cafe.json
        2. employee.json
        3. employee_id_counter.json
-4. After the third step run the another SQL file for relatioinal seeded data 
+4. After the third step run the another SQL file "Scripts/sql/employee_cafe_relation_data.sql" for relatioinal seeded data 
 5. Now "astek_gic" database is ready with sample seeded values.
 
 --> Backend Setup
