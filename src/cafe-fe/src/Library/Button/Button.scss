@@ -1,0 +1,51 @@
+#CustomButton.custom-button {
+    font-family: inherit;
+    text-transform: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    line-height: 20px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.1;
+    font-weight: 500;
+    font-size: 18px;
+    color: #fff;
+    padding: 6px 38px;
+    margin-right: 15px;
+
+    &--primary {
+        background-color: #1976d2;
+
+        &:hover {
+            background-color: #1565c0;
+        }
+    }
+
+    &--secondary {
+        background-color: #9c27b0;
+
+        &:hover {
+            background-color: #7b1fa2;
+        }
+    }
+    
+    &--small {
+        font-size: 18px;
+        padding: 10px 16px;
+    }
+    
+    &--medium {
+        font-size: 18px;
+        padding: 11px 20px;
+    }
+    
+    &--large {
+        font-size: 20px;
+        padding: rgba(0,0,0,0.12);
+    }
+    &.disabled {
+        color: (0,0,0,0.26);
+        box-shadow: none;
+        background-color: rgba(0,0,0,0.12);
+    }
+}
