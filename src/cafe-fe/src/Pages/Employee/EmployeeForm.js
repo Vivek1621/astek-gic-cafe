@@ -30,6 +30,9 @@ import { fetchCafesDropdownRequest } from "../../Redux/Reducers/CafeSlices/GetCa
 import { Loader } from "../../Library/Loader/Loader";
 import { CustomSnackbar } from "../../Library/Snackbar/Snackbar";
 import { resetSnackbarData } from "../../Redux/Reducers/SnackbarSlice";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
 
 const EmployeeForm = () => {
     const navigate = useNavigate();
@@ -50,11 +53,11 @@ const EmployeeForm = () => {
             phone_number: isEditMode ? location.state.employee.phone_number : "",
             gender: isEditMode ? location.state.employee.gender : "",
             cafe_id: isEditMode ? location.state.employee.cafe_id : "",
-            start_date: isEditMode ? location.state.employee.start_date : null
+            start_date: isEditMode ? new Date(location.state.employee.start_date) : null
         },
         validationSchema: EmployeeValidationSchema,
         onSubmit: (values) => {
-            if(isEditMode) {
+            if (isEditMode) {
                 const payloadData = {
                     id: location.state.employee.id,
                     name: values.name,
@@ -62,20 +65,21 @@ const EmployeeForm = () => {
                     phone_number: values.phone_number,
                     gender: values.gender,
                     cafe_id: values.cafe_id,
-                    start_date: values.start_date,
+                    start_date: values.start_date ? format(values.start_date, "yyyy-MM-dd") : null,
+
                 };
-    
+
                 dispatch(fetchUpdateEmployeesRequest(payloadData));
-            }else {
+            } else {
                 const payloadData = {
                     name: values.name,
                     email_address: values.email_address,
                     phone_number: values.phone_number,
                     gender: values.gender,
                     cafe_id: values.cafe_id,
-                    start_date: values.start_date,
+                    start_date: values.start_date ? format(values.start_date, "yyyy-MM-dd") : null,
                 };
-    
+
                 dispatch(fetchCreateEmployeesRequest(payloadData));
             }
         }
@@ -217,12 +221,21 @@ const EmployeeForm = () => {
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    {/* <CustomDatePicker
-                                    name="start_date"
-                                    label="Start Date"
-                                    dateFormat="MM/dd/yyyy"
-                                    disableFuture
-                                /> */}
+                                    <DatePicker
+            
+                                        selected={formik.values.start_date}
+                                        onChange={(date) => formik.setFieldValue("start_date", date)}
+                                        dateFormat="yyyy/MM/dd"
+                                        customInput={<TextField
+                                            fullWidth
+                                            label="Start Date"
+                                            variant="outlined"
+                                            margin="normal"
+                                            error={formik.touched.start_date && Boolean(formik.errors.start_date)}
+                                            helperText={formik.touched.start_date && formik.errors.start_date}
+                                            sx={{ mt: 0 }}
+                                        />}
+                                    />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Button type="submit" variant="contained" color="primary">
@@ -236,7 +249,6 @@ const EmployeeForm = () => {
                         </Grid>
                     </Grid>
                 </Box>
-
                 <Dialog
                     open={openDialog}
                     onClose={handleCloseDialog}

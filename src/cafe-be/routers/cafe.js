@@ -3,10 +3,10 @@ const connection = require('../config/mysql');
 const router = express.Router();
 
 // Get cafes
-// Get cafes
 router.get('/getCafes', async (req, res) => {
     try {
         const location = req.query.location;
+        console.log(location)
         let query = `
             SELECT c.id, c.name, c.description, c.logo, c.location, COUNT(ec.employee_id) AS employee
             FROM cafe c

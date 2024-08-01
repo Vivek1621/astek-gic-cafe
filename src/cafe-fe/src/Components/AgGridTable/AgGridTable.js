@@ -21,7 +21,7 @@ export const AgGridTable = ({
     };
 
     const applyFilter = () => {
-        if (handleFilter) {
+        if (handleFilter) {          
             handleFilter(filterText);
         }
     };

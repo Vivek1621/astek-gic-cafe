@@ -44,7 +44,7 @@ const CafePage = () => {
   };
 
   const handleFilter = (filterText) => {
-    fetchGetCafesRequest(filterText);
+    dispatch(fetchGetCafesRequest(filterText));
   };
 
   const closeSnackbar = () => {
