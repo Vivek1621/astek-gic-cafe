@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
@@ -19,16 +19,16 @@ const Alert = forwardRef(function Alert(props, ref) {
 });
 
 export const CustomSnackbar = ({
-  isOpen,
-  type,
+  type = "success",
+  duration = 6000,
+  isOpen = true,
+  vertical = "top",
+  horizontal = "center",
+  showIcon = false,
+  icon = <SaveAsIcon />,
   message,
   handleClose,
   onExit,
-  duration,
-  vertical,
-  horizontal,
-  icon,
-  showIcon,
 }) => {
   return (
     <div id="custom-snackbar">
@@ -56,30 +56,25 @@ export const CustomSnackbar = ({
   );
 };
 
-CustomSnackbar.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  type: PropTypes.oneOf([
-    "success",
-    "error",
-    "warning",
-    "info",
-  ]),
-  message: PropTypes.string,
-  handleClose: PropTypes.func.isRequired,
-  onExit: PropTypes.func,
-  duration: PropTypes.number,
-  vertical: PropTypes.oneOf(["top", "bottom"]),
-  horizontal: PropTypes.oneOf(["center", "left", "right"]),
-  showIcon: PropTypes.bool,
-  icon: PropTypes.element,
-};
+// CustomSnackbar.propTypes = {
+//   isOpen: PropTypes.bool.isRequired,
+//   type: PropTypes.string,
+//   message: PropTypes.string,
+//   handleClose: PropTypes.func.isRequired,
+//   onExit: PropTypes.func,
+//   duration: PropTypes.number,
+//   vertical: PropTypes.oneOf(["top", "bottom"]),
+//   horizontal: PropTypes.oneOf(["center", "left", "right"]),
+//   showIcon: PropTypes.bool,
+//   icon: PropTypes.element,
+// };
 
-CustomSnackbar.defaultProps = {
-  type: "success",
-  duration: 6000,
-  isOpen: true,
-  vertical: "top",
-  horizontal: "center",
-  showIcon: false,
-  icon: <SaveAsIcon />,
-}
+// CustomSnackbar.defaultProps = {
+//   type: "success",
+//   duration: 6000,
+//   isOpen: true,
+//   vertical: "top",
+//   horizontal: "center",
+//   showIcon: false,
+//   icon: <SaveAsIcon />,
+// }

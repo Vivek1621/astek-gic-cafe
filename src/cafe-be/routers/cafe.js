@@ -6,7 +6,6 @@ const router = express.Router();
 router.get('/getCafes', async (req, res) => {
     try {
         const location = req.query.location;
-        console.log(location)
         let query = `
             SELECT c.id, c.name, c.description, c.logo, c.location, COUNT(ec.employee_id) AS employee
             FROM cafe c
@@ -69,7 +68,6 @@ router.put('/updateCafe', async (req, res) => {
 // Delete a cafe
 router.delete('/deleteCafe', async (req, res) => {
     try {
-    console.log(req.body);
         const { id } = req.body;
         const query = `DELETE FROM cafe WHERE id = ?`;
         

@@ -19,7 +19,6 @@ const CafeAddEditForm = () => {
     const dispatch = useDispatch();
 
     const isEditMode = location.state && location.state.cafe;
-    console.log(location.state.cafe)
     const { isLoading: editLoading } = useSelector(state => state.createCafe);
     const { isLoading: createLoading } = useSelector(state => state.updateCafe);
     const {snackbarData} = useSelector((state) => state.snackbarDetails);
@@ -42,7 +41,7 @@ const CafeAddEditForm = () => {
                     id: location.state.cafe.id,
                     name: values.name,
                     description: values.description,
-                    logo: values.logo,
+                    logo: null,
                     location: values.location,
                 };
                 dispatch(fetchUpdateCafesRequest(payloadData));
@@ -51,7 +50,7 @@ const CafeAddEditForm = () => {
                 const payloadData = {
                     name: values.name,
                     description: values.description,
-                    logo: values.logo,
+                    logo: null,
                     location: values.location,
                 };
                 dispatch(fetchCreateCafesRequest(payloadData));

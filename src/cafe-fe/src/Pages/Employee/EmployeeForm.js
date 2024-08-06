@@ -46,6 +46,10 @@ const EmployeeForm = () => {
 
     const isEditMode = location.state && location.state.employee;
 
+    const getStartDate = (dateValue) => {
+        return dateValue ? new Date(dateValue) : null
+    }
+
     const formik = useFormik({
         initialValues: {
             name: isEditMode ? location.state.employee.name : "",
@@ -53,7 +57,7 @@ const EmployeeForm = () => {
             phone_number: isEditMode ? location.state.employee.phone_number : "",
             gender: isEditMode ? location.state.employee.gender : "",
             cafe_id: isEditMode ? location.state.employee.cafe_id : "",
-            start_date: isEditMode ? new Date(location.state.employee.start_date) : null
+            start_date: isEditMode ? getStartDate(location.state.employee.start_date) : null
         },
         validationSchema: EmployeeValidationSchema,
         onSubmit: (values) => {
@@ -222,7 +226,7 @@ const EmployeeForm = () => {
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <DatePicker
-            
+
                                         selected={formik.values.start_date}
                                         onChange={(date) => formik.setFieldValue("start_date", date)}
                                         dateFormat="yyyy/MM/dd"
